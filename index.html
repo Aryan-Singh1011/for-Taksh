@@ -28,14 +28,21 @@ text-align:center;
 position:fixed;
 width:100%;
 height:100%;
-background:url("https://i.imgur.com/9QZ7h5y.png");
-animation:moveStars 120s linear infinite;
+background:
+radial-gradient(2px 2px at 20% 30%, white, transparent),
+radial-gradient(2px 2px at 70% 80%, white, transparent),
+radial-gradient(2px 2px at 40% 60%, white, transparent),
+radial-gradient(2px 2px at 90% 20%, white, transparent),
+radial-gradient(2px 2px at 10% 90%, white, transparent);
+background-repeat:repeat;
+background-size:200px 200px;
+animation:twinkle 5s infinite alternate;
 z-index:-2;
-opacity:0.7;
 }
-@keyframes moveStars{
-from{background-position:0 0;}
-to{background-position:10000px 5000px;}
+
+@keyframes twinkle{
+from{opacity:0.5;}
+to{opacity:1;}
 }
 
 /* PASSWORD SCREEN */
@@ -347,4 +354,5 @@ setTimeout(()=>petal.remove(),6000);
 </script>
 
 </body>
+
 </html>
