@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Taksh 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background: radial-gradient(circle at top,#1a1a2e,#0f0f1a 60%);
+color:white;
+overflow:hidden;
+text-align:center;
+}
+
+/* STAR BACKGROUND */
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://i.imgur.com/9QZ7h5y.png");
+animation:moveStars 120s linear infinite;
+z-index:-2;
+opacity:0.7;
+}
+@keyframes moveStars{
+from{background-position:0 0;}
+to{background-position:10000px 5000px;}
+}
+
+/* PASSWORD SCREEN */
+#passwordScreen{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input{
+padding:12px;
+border-radius:25px;
+border:none;
+width:220px;
+margin-top:15px;
+text-align:center;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* MAIN CONTENT */
+#mainContent{
+display:none;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+/* GIFT */
+.gift-scene{
+perspective:1000px;
+margin-top:30px;
+cursor:pointer;
+}
+
+.gift{
+position:relative;
+width:140px;
+height:140px;
+transform-style:preserve-3d;
+transition:1s ease;
+}
+
+.box{
+position:absolute;
+width:140px;
+height:140px;
+background:linear-gradient(145deg,#ff4d6d,#ff85a2);
+border-radius:15px;
+}
+
+.lid{
+position:absolute;
+width:140px;
+height:40px;
+background:#ff99ac;
+top:-40px;
+border-radius:15px;
+transform-origin:bottom;
+transition:1s ease;
+}
+
+.ribbon{
+position:absolute;
+width:20px;
+height:140px;
+background:white;
+left:50%;
+transform:translateX(-50%);
+}
+
+.gift.open{
+transform:rotateY(360deg);
+}
+
+.gift.open .lid{
+transform:rotateX(-140deg);
+}
+
+/* CARDS CONTAINER */
+.cards{
+position:relative;
+margin-top:40px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+/* CARDS POP OUT EFFECT */
+.card{
+width:120px;
+height:150px;
+perspective:1000px;
+cursor:pointer;
+opacity:0;
+transform:translateY(-120px) scale(0.5);
+transition:all 0.8s ease;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+/* FLIP SYSTEM */
+.card-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:transform 0.8s;
+transform-style:preserve-3d;
+}
+
+.card.flipped .card-inner{
+transform:rotateY(180deg);
+}
+
+.card-front, .card-back{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:10px;
+border-radius:10px;
+backface-visibility:hidden;
+font-weight:bold;
+}
+
+.card-front{
+background:white;
+color:#ff4d6d;
+}
+
+.card-back{
+background:#ff4d6d;
+color:white;
+transform:rotateY(180deg);
+}
+
+/* PETALS */
+.petal{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+@media(max-width:500px){
+.card{
+width:100px;
+height:130px;
+font-size:14px;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+<h2>🔐 Private Birthday Surprise</h2>
+<p>Only for Taksh 💖</p>
+<input type="password" id="pass" placeholder="Enter Password">
+<button onclick="unlock()">Unlock ✨</button>
+<p id="error" style="color:#ff99ac;margin-top:10px;"></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+
+<h1>Happy 21st Birthday Taksh 🎂</h1>
+<p>From Somya 💕</p>
+<br><br>
+
+<div class="gift-scene" onclick="openGift()">
+  <div class="gift" id="gift">
+    <div class="lid"></div>
+    <div class="box"></div>
+    <div class="ribbon"></div>
+  </div>
+</div>
+
+<div class="cards">
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">💌 Click Me</div>
+      <div class="card-back">I didn’t expect Litmatch to give me someone like you 💖</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">🎂 Click Me</div>
+      <div class="card-back">My safest place belongs to you ✨</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">🌙 Click Me</div>
+      <div class="card-back">Talking to you became my favorite 💕</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">🌸 Click Me</div>
+      <div class="card-back">My favorite smile belongs to you 😊</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">🎁 Click Me</div>
+      <div class="card-back">You are my cutest gift💖</div>
+    </div>
+  </div>
+
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+</div>
+
+<script>
+
+function unlock(){
+if(document.getElementById("pass").value==="somya"){
+document.getElementById("passwordScreen").style.display="none";
+document.getElementById("mainContent").style.display="flex";
+document.getElementById("bgMusic").play();
+}else{
+document.getElementById("error").innerText="Wrong password 💔";
+}
+}
+
+function openGift(){
+let gift=document.getElementById("gift");
+let cards=document.querySelectorAll(".card");
+
+if(!gift.classList.contains("open")){
+gift.classList.add("open");
+
+setTimeout(()=>{
+cards.forEach((card,index)=>{
+setTimeout(()=>{
+card.classList.add("show");
+},index*300);
+});
+startPetals();
+confetti({
+particleCount:250,
+spread:120,
+origin:{y:0.6}
+});
+},800);
+}
+}
+
+function flipCard(card){
+card.classList.toggle("flipped");
+}
+
+function startPetals(){
+setInterval(()=>{
+let petal=document.createElement("div");
+petal.classList.add("petal");
+petal.innerHTML="🌸";
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),6000);
+},300);
+}
+
+</script>
+
+</body>
+</html>
